@@ -15,16 +15,26 @@ const config = {
    devtool: 'source-map',
    module: {
     rules: [
-     {
-       test: /(\.css|.scss)$/,
-       use: [{
-           loader: "style-loader" // creates style nodes from JS strings
-       }, {
-           loader: "css-loader" // translates CSS into CommonJS
-       }, {
-           loader: "sass-loader" // compiles Sass to CSS
-       }]
-     },
+      {
+        test: /\.(scss)$/,
+        use: [{
+          loader: 'style-loader', // inject CSS to page
+        }, {
+          loader: 'css-loader', // translates CSS into CommonJS modules
+        }, {
+          loader: 'postcss-loader', // Run post css actions
+          options: {
+            plugins: function () { // post css plugins, can be exported to postcss.config.js
+              return [
+                require('precss'),
+                require('autoprefixer')
+              ];
+            }
+          }
+        }, {
+          loader: 'sass-loader' // compiles Sass to CSS
+        }]
+      },
      {
        test: /\.(jsx|js)?$/,
        exclude: /node_modules/,
@@ -35,7 +45,13 @@ const config = {
            presets: ['react', 'es2015'] // Transpiles JSX and ES6
          }
        }]
-     }
+     },{
+      test: /\.(jpg|png|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 25000,
+        }
+      }
     ],
 
   }
