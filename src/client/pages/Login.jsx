@@ -5,7 +5,7 @@ export default class Login extends Component {
         return (
                 <div className="login-page">
                     <form className="form-signin">
-                        <img src = {require('../img/logo-5.svg')} />
+                        <img src = {require('../img/logo-5.svg')} className="login-logo"/>
                         <div className="form-group">
                             <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
                         </div>
@@ -16,7 +16,7 @@ export default class Login extends Component {
                             <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                             <label className="form-check-label" htmlFor="exampleCheck1">Remember Me</label>
                         </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-lg btn-primary btn-block">Submit</button>
                     </form>
                 </div>
         );
