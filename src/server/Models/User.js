@@ -1,9 +1,32 @@
-var express = require('express');
-var router = express.Router();
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
-//All API Routes will need to be declared first
-router.get('/', function (request, response) {
-    response.send('Hello World!');
+var UserSchema = new Schema({
+    fullName: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    email: {
+        type: String,
+        trim: true,
+        unique: true,
+        lowercase: true,
+        required: true
+    },
+    hash_password: {
+        type: String,
+        required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-module.exports = router;
+UserSchema.methods.comparePassword = function (password) {
+    return bcrypt.compareSync(password, this.hash_password);
+};
+
+mongoose.model('User',UserSchema);

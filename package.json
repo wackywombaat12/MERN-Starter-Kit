@@ -12,9 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.17.1",
+    "bcrypt": "^1.0.3",
     "bootstrap": "^4.0.0",
     "express": "^4.16.2",
     "jquery": "^3.3.1",
+    "jsonwebtoken": "^8.1.1",
+    "mongoose": "^5.0.1",
     "path": "^0.12.7",
     "popper.js": "^1.12.9",
     "react": "^16.2.0",
@@ -45,10 +49,10 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
   },
-  "jest": { 
-    "moduleNameMapper": { 
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": 
-      "<rootDir>/config/assetsTransformer.js", "\\.(css|less)$": "<rootDir>/config/assetsTransformer.js" 
-      } 
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/config/assetsTransformer.js"
     }
+  }
 }

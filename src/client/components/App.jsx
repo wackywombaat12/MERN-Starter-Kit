@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../pages/Login.jsx';
 import Home from '../pages/Home.jsx';
+import Register from '../pages/Register.jsx';
 import Nav from './Nav.jsx';
 import {
     BrowserRouter as Router,
@@ -12,8 +13,11 @@ const App = () => (
     <Router>
       <div>
         <Nav/>
-        <Route exact path="/" component={Home}/>
-        <Route path="/login" component={Login}/>
+        <main className="container-fluid">
+          <Route exact path="/" component={Home}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/register" component={Register}/>
+        </main>
       </div>
     </Router>
 );

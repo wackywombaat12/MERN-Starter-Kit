@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 const path = require('path');
+var user = require('./Models/User');
+
+require("./startup/db");
 
 const fileName = 'index.html';
 const options = {
@@ -13,8 +16,8 @@ const options = {
 };
 
 // ADD THESE TWO LINES
-var UserController = require('./Models/User.js');
-app.use('/api/login', UserController);
+var UserController = require('./Controllers/User.js');
+app.use('/api/register', UserController);
 
 app.use(express.static(__dirname +'./../../')); //serves the index.html
 
