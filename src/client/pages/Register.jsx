@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FormErrors from '../components/FormErrors.jsx';
 const axios = require('axios');
 
 export default class Register extends Component {
@@ -9,23 +10,28 @@ export default class Register extends Component {
         this.state = {
           email: '',
           name: '',
-          password: ''
+          password: '',
+          formErrors: {name: '', email: '', password: ''},
+          emailValid: false,
+          passwordValid: false,
+          nameValid: false,
+          formValid: false
+
         }
         // This binding is necessary to make `this` work in the callback
         this.handleClick = this.handleClick.bind(this);
     }
     
-    handleClick() {
-        console.log(this.state.email);
+    async handleClick() {
         axios.post('/api/register', {
-            name: this.state.name,
+            fullName: this.state.name,
             email: this.state.email,
             password: this.state.password
-          })
-          .then(function (response) {
+        })
+        .then(function (response) {
             console.log(response);
-          })
-          .catch(function (error) {
+        })
+        .catch(function (error) {
             console.log(error);
         });
     }
@@ -33,7 +39,45 @@ export default class Register extends Component {
     handleUserInput (e) {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({[name]: value});
+        this.setState({[name]: value}, 
+            () => { this.validateField(name, value) });
+    }
+
+    validateField(fieldName, value) {
+        let fieldValidationErrors = this.state.formErrors;
+        let emailValid = this.state.emailValid;
+        let passwordValid = this.state.passwordValid;
+        let nameValid = this.state.nameValid;
+      
+        switch(fieldName) {
+        case 'email':
+            emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+            fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+            break;
+        case 'password':
+            passwordValid = value.length >= 6;
+            fieldValidationErrors.password = passwordValid ? '': ' is too short';
+            break;
+        case 'name':
+            nameValid = value.length >= 1;
+            fieldValidationErrors.name = nameValid ? '': ' please provide a name';
+            break;
+        default:
+            break;
+        }
+        this.setState({formErrors: fieldValidationErrors,
+                        emailValid: emailValid,
+                        passwordValid: passwordValid,
+                        nameValid: nameValid
+                      }, this.validateForm);
+      }
+      
+    validateForm() {
+        this.setState({formValid: this.state.emailValid && this.state.passwordValid && this.state.nameValid});
+    }
+
+    errorClass(error) {
+        return(error.length === 0 ? '' : 'has-error');
     }
 
     render() {
@@ -41,7 +85,8 @@ export default class Register extends Component {
             <div className="register-page">
                 <form className="form-signin">
                     <h1>Register</h1>
-                    <div className="form-group">
+                    <div 
+                        className={'form-group ${this.errorClass(this.state.formErrors.email)}'}>
                         <input 
                             type="text"
                             name="name"
@@ -74,11 +119,15 @@ export default class Register extends Component {
                             placeholder="Password" />
                     </div>
                     <button 
-                        type="submit"
+                        type="button"
                         onClick={this.handleClick}
+                        disabled={!this.state.formValid}
                         className="btn btn-lg btn-primary btn-block">
                         Submit
                     </button>
+                    <div className="panel panel-default">
+                        <FormErrors formErrors={this.state.formErrors} />
+                    </div>
                 </form>
             </div>
         );

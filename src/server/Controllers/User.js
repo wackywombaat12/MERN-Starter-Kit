@@ -8,8 +8,9 @@ var bcrypt = require('bcrypt');
 //All API Routes will need to be declared first
 router.post('/', function (req, res) {
     var body = req.body;
+    console.log(body);
     var newUser = new User(req.body);
-    newUser.hash_password = bcrypt.hashSync(test_user.password, 10);
+    newUser.hash_password = bcrypt.hashSync(body.password, 10);
     newUser.save(function(err, user) {
       if (err) {
         return res.status(400).send({

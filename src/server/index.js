@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 const path = require('path');
 var user = require('./Models/User');
+var bodyParser = require('body-parser');
 
 require("./startup/db");
 
@@ -15,7 +16,8 @@ const options = {
     }
 };
 
-// ADD THESE TWO LINES
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var UserController = require('./Controllers/User.js');
 app.use('/api/register', UserController);
 

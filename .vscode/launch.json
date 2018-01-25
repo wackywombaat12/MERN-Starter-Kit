@@ -14,7 +14,7 @@
             "runtimeArgs": [
                 "--inspect=9222"
             ],
-            "program": "${workspaceFolder}\\src\\server\\index.js",
+            "program": "${workspaceFolder}/src/server/index.js",
             "port": 9222,
             "restart": true,
             "env": {
