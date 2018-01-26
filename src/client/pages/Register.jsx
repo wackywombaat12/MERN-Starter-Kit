@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import FormErrors from '../components/FormErrors.jsx';
 const axios = require('axios');
+import { withRouter } from "react-router-dom";
 
-export default class Register extends Component {
+class Register extends Component {
 
     constructor (props) {
         super(props);
@@ -21,17 +22,21 @@ export default class Register extends Component {
         // This binding is necessary to make `this` work in the callback
         this.handleClick = this.handleClick.bind(this);
     }
+    componentDidMount() {
+        console.log(document.cookie);
+    }
     
-    async handleClick() {
-        axios.post('/api/register', {
+    handleClick() {
+        axios.post('/api/user/register', {
             fullName: this.state.name,
             email: this.state.email,
             password: this.state.password
         })
-        .then(function (response) {
+        .then(response => {
             console.log(response);
+            this.props.history.push("/");
         })
-        .catch(function (error) {
+        .catch(error => {
             console.log(error);
         });
     }
@@ -133,3 +138,5 @@ export default class Register extends Component {
         );
     }
 };
+
+export default withRouter(Register);
