@@ -33,8 +33,8 @@ export default class Login extends Component {
             password: this.state.password
         })
         .then(response => {
-            console.log(response);
-            console.log(document.cookie);
+            console.log(response.data);
+            localStorage.setItem('user', JSON.stringify(response.data));
         })
         .catch(error => {
             console.log(error);

@@ -4,6 +4,15 @@ import {
 } from 'react-router-dom';
 
 export default class Login extends Component {
+
+    getUser() {
+        var data = {};
+        if (localStorage.getItem('user')) {
+            data = JSON.parse(localStorage.getItem('user'))
+            return data.user;
+        }
+        return false;
+    }
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -23,6 +32,8 @@ export default class Login extends Component {
                         </li>
                     </ul>
                 </div>
+                <a href="#">
+                {this.getUser()}</a>
             </nav>
         );
     }

@@ -26,7 +26,7 @@ const App = () => (
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    document.cookie
+    localStorage.getItem('user')
       ? <Component {...props} />
       : <Redirect to='/login' />
   )} />

@@ -18,7 +18,10 @@ router.post('/register', function (req, res) {
         });
       } else {
         user.hash_password = undefined;
-        return res.json(user);
+        return res.json({
+          token: jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id}, 'RESTFULAPIs'),
+          user: user.email
+        });
       }
   })
 });
@@ -35,9 +38,10 @@ router.post('/login', function (req, res) {
       if (!user.comparePassword(req.body.password)) {
         res.status(401).json({ message: 'Authentication failed. Wrong password.' });
       } else {
-        req.session.email = req.body.email;
-        res.cookie('email', req.session.email, {maxAge: 10800});
-        return res.json({message: 'success!'});
+        return res.json({
+            token: jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id}, 'RESTFULAPIs'),
+            user: user.email
+        });
       }
     }
   });
@@ -47,7 +51,7 @@ router.post('/login', function (req, res) {
 router.get('/logout', function (req, res) {
   console.log(req.session);
   req.session.destroy();
-  res.clearCookie('email');
+  res.clearCookie('auth');
   res.json({message: 'Logged OUT!'});
 });
 
