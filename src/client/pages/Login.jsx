@@ -13,7 +13,8 @@ export default class Login extends Component {
           formErrors: { email: '', password: ''},
           emailValid: false,
           passwordValid: false,
-          formValid: false
+          formValid: false,
+          loginError: ''
 
         }
         // This binding is necessary to make `this` work in the callback
@@ -37,7 +38,8 @@ export default class Login extends Component {
             localStorage.setItem('user', JSON.stringify(response.data));
         })
         .catch(error => {
-            console.log(error);
+            let message = error.response.data.message;
+            this.setState({loginError: message})
         });
     }
 
@@ -105,6 +107,9 @@ export default class Login extends Component {
                         onClick={this.handleClick}
                         className="btn btn-lg btn-primary btn-block">Submit</button>
                     <div className="panel panel-default">
+                        <div className="test">
+                            { this.state.loginError==='' ? '' : this.state.loginError}
+                        </div>
                         <FormErrors formErrors={this.state.formErrors} />
                     </div>
                 </form>
