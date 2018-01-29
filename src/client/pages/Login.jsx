@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import FormErrors from '../components/FormErrors.jsx';
 const axios = require('axios');
+import { withRouter } from "react-router-dom";
 
-export default class Login extends Component {
+class Login extends Component {
 
     constructor (props) {
         super(props);
@@ -36,6 +37,7 @@ export default class Login extends Component {
         .then(response => {
             console.log(response.data);
             localStorage.setItem('user', JSON.stringify(response.data));
+            this.props.history.push("/home");
         })
         .catch(error => {
             let message = error.response.data.message;
@@ -65,6 +67,10 @@ export default class Login extends Component {
                         passwordValid: passwordValid,
                       }, this.validateForm);
       }
+
+    componentDidMount() {
+        this.validateForm;
+    }
       
     validateForm() {
         this.setState({formValid: this.state.emailValid && this.state.passwordValid});
@@ -117,3 +123,5 @@ export default class Login extends Component {
         );
     }
 };
+
+export default withRouter(Login);

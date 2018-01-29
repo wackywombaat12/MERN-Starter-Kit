@@ -16,7 +16,7 @@ const App = () => (
       <div>
         <Nav/>
         <main className="container-fluid">
-          <PrivateRoute exact path="/" component={Home}/>
+          <PrivateRoute exact path="/home" component={Home}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
         </main>

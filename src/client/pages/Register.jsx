@@ -35,7 +35,7 @@ class Register extends Component {
         .then(response => {
             console.log(response);
             localStorage.setItem('user', JSON.stringify(response.data));
-            this.props.history.push("/");
+            this.props.history.push("/home");
         })
         .catch(error => {
             console.log(error);

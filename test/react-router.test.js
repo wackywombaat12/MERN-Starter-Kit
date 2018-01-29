@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { mount,configure } from 'enzyme';
 import { MemoryRouter } from 'react-router';
 import Login from '../src/client/pages/Login.jsx';
+import Register from '../src/client/pages/Register.jsx';
 import Home from '../src/client/pages/Home.jsx';
 import App from '../src/client/components/App.jsx';
 import Adapter from 'enzyme-adapter-react-16';
@@ -18,11 +19,11 @@ test('Router Login Path', () => {
   expect(wrapper.find(Login)).toHaveLength(1);
 });
 
-test('Router Home Path', () => {
+test('Router Register Path', () => {
   const wrapper = mount(
-    <MemoryRouter initialEntries={[ '/' ]}>
+    <MemoryRouter initialEntries={[ '/register' ]}>
       <App/>
     </MemoryRouter>
   );
-  expect(wrapper.find(Home)).toHaveLength(1);
+  expect(wrapper.find(Register)).toHaveLength(1);
 });
