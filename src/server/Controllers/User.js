@@ -55,13 +55,4 @@ router.get('/logout', function (req, res) {
   res.json({message: 'Logged OUT!'});
 });
 
-// Logout endpoint
-router.get('/auth', function (req, res) {
-  if (req.session && req.session.email) {
-    return res.json({message: 'Logged In.'});
-  } else {
-    return res.sendStatus(401);
-  }
-});
-
 module.exports = router

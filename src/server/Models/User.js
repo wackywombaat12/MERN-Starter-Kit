@@ -22,7 +22,8 @@ var UserSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
-    }
+    },
+    team: { type: Schema.Types.ObjectId, ref: 'Team', required: false },
 });
 
 UserSchema.methods.comparePassword = function (password) {
